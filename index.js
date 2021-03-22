@@ -31,21 +31,57 @@ function buyIceCream() {
 
 //state of application
 
-const initialState = {
-    numOfCakes : 10, 
+// const initialState = {
+//     numOfCakes : 10, 
+//     numOfIceCreams: 20
+// }
+
+
+//two object for initial state
+const initialCakeState = {
+    numOfCakes : 10,
+}
+
+const initialIceCreamState = {
     numOfIceCreams: 20
 }
+
 
 // <--Implementing Reducer-->
 
 //reducer function which controls how the state transtion happens
-const reducer = (state = initialState, action) => {
+
+
+// const reducer = (state = initialState, action) => {
+//     switch(action.type){
+//         case BUY_CAKE: return {
+//             ...state, 
+//             numOfCakes: state.numOfCakes - 1
+//         }
+
+//         case BUY_ICECREAM: return {
+//             ...state,
+//             numOfIceCreams: state.numOfIceCreams - 1
+//         }
+//         default:return state
+//     }
+// }
+
+//spliting reducers into two
+
+const cakeReducer = (state = initialCakeState, action) => {
     switch(action.type){
         case BUY_CAKE: return {
             ...state, 
             numOfCakes: state.numOfCakes - 1
-        }
+        }    
+        default:return state
+    }
+}
 
+
+const iceCreamReducer = (state = initialIceCreamState, action) => {
+    switch(action.type){
         case BUY_ICECREAM: return {
             ...state,
             numOfIceCreams: state.numOfIceCreams - 1
@@ -53,8 +89,6 @@ const reducer = (state = initialState, action) => {
         default:return state
     }
 }
-
-
 
 const store = createStore(reducer) //redux store holding the application state
 console.log("initial state", store.getState()); //allowing access to the state via getState()
