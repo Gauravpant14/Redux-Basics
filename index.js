@@ -1,5 +1,6 @@
 const redux = require('redux')
 const createStore = redux.createStore
+const combineReducers = redux.combineReducers
 
 
 const BUY_CAKE = "BUY_CAKE"
@@ -90,7 +91,14 @@ const iceCreamReducer = (state = initialIceCreamState, action) => {
     }
 }
 
-const store = createStore(reducer) //redux store holding the application state
+//holding multiple reducers
+const rootReducer = combineReducers({
+    cake: cakeReducer,
+    iceCream: iceCreamReducer
+})
+
+const store = createStore(rootReducer)
+// const store = createStore(reducer) //redux store holding the application state
 console.log("initial state", store.getState()); //allowing access to the state via getState()
 
 // store.subscribe(() => console.log('Updated state', store.getState())) //Allow the app to subscribe to changes in the store ,that is acchieved by using subscribe method
