@@ -1,7 +1,10 @@
 const redux = require('redux')
+const reduxLogger = require('redux-logger')
+
 const createStore = redux.createStore
 const combineReducers = redux.combineReducers
-
+const applyMiddleware = redux.applyMiddleware
+const logger = reduxLogger.createLogger()
 
 const BUY_CAKE = "BUY_CAKE"
 const BUY_ICECREAM = "BUY_ICECREAM "
@@ -97,13 +100,14 @@ const rootReducer = combineReducers({
     iceCream: iceCreamReducer
 })
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer,applyMiddleware(logger))
 // const store = createStore(reducer) //redux store holding the application state
 console.log("initial state", store.getState()); //allowing access to the state via getState()
 
 // store.subscribe(() => console.log('Updated state', store.getState())) //Allow the app to subscribe to changes in the store ,that is acchieved by using subscribe method
 
-const unsubscribe = store.subscribe(() => console.log('Updated state', store.getState()))
+// const unsubscribe = store.subscribe(() => console.log('Updated state', store.getState()))
+const unsubscribe = store.subscribe(() => {})
 store.dispatch(buyCake()) //dispatch method accepts a action method as an parameter
 store.dispatch(buyCake()) // Allow state to be updated via dispatch(action)
 store.dispatch(buyCake()) 
